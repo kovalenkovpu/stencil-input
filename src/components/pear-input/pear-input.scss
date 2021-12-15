@@ -1,0 +1,139 @@
+:host {
+  /* Font styles */
+  --font-family-open-sans: 'Open Sans', sans-serif;
+  --font-size: 1rem;
+
+  /* Common colors */
+  --color-white: #ffffff;
+  --color-beige-400: #f7f4f0;
+  --color-beige-500: #f0ede9;
+  --color-beige-700: #dedad5;
+  --color-hot-pink-400: #f7b4d7;
+  --color-hot-pink-700: #ea067e;
+  --color-hot-pink-800: #bf0366;
+  --color-purple-700: #722362;
+  --color-blue-800: #3aa19f;
+  --color-gray-200: #bfbbbf;
+  --color-gray-400: #77717a;
+  --color-gray-900: #1f0a1b;
+
+  --select-box-shadow: 0 0 0 2px var(--color-purple-700);
+  --default-offset: 8px;
+
+  /*Font styles*/
+  --line-height: 1.25rem;
+
+  /*Colors styles*/
+  --label-color: var(--color-gray-400);
+  --label-color-hovered: var(--color-gray-900);
+  --label-color-selected: var(--color-gray-400);
+  --label-color-disabled: var(--color-gray-200);
+  --input-color: var(--color-gray-900);
+  --border-color: var(--color-beige-400);
+  --border-color-hovered: var(--color-beige-500);
+  --input-color-error: var(--color-hot-pink-800);
+  --input-border-color-focused: var(--color-purple-700);
+  --background-default-color: var(--color-white);
+
+  /*Border styles*/
+  --border-radius: 12px;
+  --border-width: 2px;
+
+  /*Size styles*/
+  --wrapper-height: 3.5rem;
+  --input-height: 1.25rem;
+  --label-height: 1.25rem;
+  --input-width: 250px;
+}
+
+.pear-input-wrapper {
+  display: inline-flex;
+  position: relative;
+  flex-direction: column;
+  justify-content: center;
+  box-sizing: border-box;
+  min-height: var(--wrapper-height);
+  font-family: var(--font-family-open-sans);
+  border-style: solid;
+  border-radius: var(--border-radius);
+  border-width: var(--border-width);
+  border-color: var(--border-color);
+  background-color: var(--background-default-color);
+  font-size: var(--font-size);
+  line-height: var(--line-height);
+  width: var(--input-width);
+}
+
+:host(:hover:not([disabled], [has-error], [focused])) .pear-input-wrapper {
+  border-color: var(--border-color-hovered);
+  cursor: text;
+}
+
+:host([focused]) .pear-input-wrapper {
+  border-color: var(--input-border-color-focused);
+}
+
+:host([has-error]) .pear-input-wrapper {
+  border: 2px solid var(--input-color-error);
+}
+
+:host([has-error]) .input-error-icon {
+  display: block;
+}
+
+:host(:hover:not([floatLabel], [disabled])) .pear-input-label {
+  color: var(--label-color-hovered);
+}
+
+:host([floatLabel]) .pear-input-label {
+  position: relative;
+  left: 0;
+  font-size: calc(var(--font-size) * 0.75);
+  padding: 0 calc(var(--default-offset) * 4.5) 0 calc(var(--default-offset) * 2.25);
+  color: var(--label-color-selected);
+}
+
+:host([disabled]) .pear-input-label {
+  color: var(--label-color-disabled);
+}
+
+.pear-input-label {
+  display: flex;
+  position: absolute;
+  align-items: center;
+  height: var(--label-height);
+  color: var(--label-color);
+  left: calc(var(--default-offset) * 2.25);
+  transition: font-size 200ms ease-in;
+}
+
+.input-error-icon {
+  display: none;
+  fill: var(--input-color-error);
+  position: absolute;
+  top: calc(50% - 8px);
+  right: 18px;
+}
+
+::slotted(input) {
+  color: var(--input-color);
+  display: flex;
+  background: none;
+  border: none;
+  padding: 0 calc(var(--default-offset) * 4.5) 0 calc(var(--default-offset) * 2.25);
+  height: var(--input-height);
+  font-family: var(--font-family-open-sans);
+  font-size: var(--font-size);
+  line-height: var(--line-height);
+  /* Safari compatibility issue - no way to properly style the outline */
+  outline: none;
+}
+
+::slotted(input:focus-visible) {
+  outline: none;
+}
+
+::slotted(input:disabled) {
+  color: var(--label-color-disabled);
+  background: none;
+}
